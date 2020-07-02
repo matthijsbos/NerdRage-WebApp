@@ -61,7 +61,7 @@ if __name__ == '__main__':
     # Setup server instance
     server = aiohttp.web.Application()
     server.add_routes([aiohttp.web.get('/ws', websocket_handler)])
-    server.router.add_static("/", "../NerdRageApp/", show_index=True)
+    server.router.add_static("/", ".", show_index=True)
 
     # Start server
-    aiohttp.web.run_app(server, port=8081)
+    aiohttp.web.run_app(server, port=8080)
