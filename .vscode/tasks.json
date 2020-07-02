@@ -1,0 +1,13 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "DockerBuildXPublishNerdRageWebApp",
+            "type": "shell",
+            "command": "docker buildx build --platform linux/arm/v7,linux/amd64 -t matthijsbos/nerdrage-web-app:latest --push .",
+            "problemMatcher": []
+        }
+    ]
+}

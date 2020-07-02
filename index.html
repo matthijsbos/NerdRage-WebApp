@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Nerd Rage</title>
+	<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script data-main="scripts/app" src="lib/requirejs/js/require.min.js">
+</script>
+	
+    <!-- <script data-main="scripts/app" src="node_modules/require.js/require.js"></script> -->
+  </head>
+  <body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>NERD RAGE!</h1>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h2>Controls</h2>
+			</div>
+			<div class="card-body container">
+			  <div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-secondary btn-lg btn-block my-3" data-toggle="modal" data-target="#exampleModal">Settings</button>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-primary btn-lg btn-block my-3" data-bind="event: { pointerdown: movePitchPositive, pointerup: stopPitch}">Pitch+</button>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-warning btn-lg btn-block my-3" data-bind="click: toggleLaser">Laser</button>
+				</div>
+			  </div>
+			  <div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-primary btn-lg btn-block my-3" data-bind="event: { pointerdown: moveYawPositive, pointerup: stopYaw}">Yaw-</button>				
+				</div>
+				<div class="col">
+						<button type="button" class="btn btn-danger btn-lg btn-block my-3" data-bind="event: { pointerdown: fireGun, pointerup: stopGun }">Fire</button>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-primary btn-lg btn-block my-3" data-bind="event: { pointerdown: moveYawNegative, pointerup: stopYaw}">Yaw+</button>				
+				</div>
+			  </div>
+			  <div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-secondary btn-lg btn-block my-3" data-bind="click: home">Home</button>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-primary btn-lg btn-block my-3" data-bind="event: { pointerdown: movePitchNegative, pointerup: stopPitch}">Pitch-</button>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-danger btn-lg btn-block my-3" data-bind="event: { pointerdown: stop}">STOP</button>
+				</div>
+			  </div>		  
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-header">
+				<h2>Console</h2>
+			</div>
+			<div class="card-body">
+				<form>
+				  <div class="form-group">
+					<label>Command</label>
+					<input type="text" class="form-control" data-bind="value: command">
+				  </div>
+				  <button type="submit" class="btn btn-primary" data-bind="click: executeCommand">Execute</button>
+				</form>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<form>
+				  <div class="form-group">
+					<label class="col-form-label">Yaw speed:</label>
+					<div class="input-group">
+					  <input type="text" class="form-control" data-bind="value: yawSpeed">
+					  <div class="input-group-append">
+						<span class="input-group-text">degrees/second</span>
+						<button class="btn btn-outline-secondary" type="button">-10%</button>
+						<button class="btn btn-outline-secondary" type="button">+10%</button>
+					  </div>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-form-label">Yaw acceleration:</label>
+					<div class="input-group">
+					  <input type="text" class="form-control" data-bind="value: yawAcceleration">
+					  <div class="input-group-append">
+						<span class="input-group-text">degrees/second<sup>2</sup></span>
+						<button class="btn btn-outline-secondary" type="button">-10%</button>
+						<button class="btn btn-outline-secondary" type="button">+10%</button>
+					  </div>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-form-label">Pitch speed:</label>
+					<div class="input-group">
+					  <input type="text" class="form-control" data-bind="value: yawSpeed">
+					  <div class="input-group-append">
+						<span class="input-group-text">degrees/second</span>
+						<button class="btn btn-outline-secondary" type="button">-10%</button>
+						<button class="btn btn-outline-secondary" type="button">+10%</button>
+					  </div>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-form-label">Pitch acceleration:</label>
+					<div class="input-group">
+					  <input type="text" class="form-control" data-bind="value: yawAcceleration">
+					  <div class="input-group-append">
+						<span class="input-group-text">degrees/second<sup>2</sup></span>
+						<button class="btn btn-outline-secondary" type="button">-10%</button>
+						<button class="btn btn-outline-secondary" type="button">+10%</button>
+					  </div>
+					</div>
+				  </div>
+
+				</form>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary">Restore defaults</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>	
+	</div>	
+  </body>
+</html>
