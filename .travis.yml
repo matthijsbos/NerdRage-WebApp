@@ -35,6 +35,11 @@ jobs:
       stage: build
       script:
         - docker buildx build --push --progress plain --platform linux/amd64 -t matthijsbos/nerdrage-webapp:latest-amd64 .
+    - name: build platform linux/arm64
+      stage: build
+      script:
+        - docker buildx build --push --progress plain --platform linux/arm64 -t matthijsbos/nerdrage-webapp:latest-arm64 .
+
     - name: build platform linux/arm/v7
       stage: build
       script:
@@ -44,7 +49,7 @@ jobs:
       script: 
         - docker pull matthijsbos/nerdrage-webapp:latest-amd64
         - docker pull matthijsbos/nerdrage-webapp:latest-armv7
-        - docker manifest create matthijsbos/nerdrage-webapp:latest matthijsbos/nerdrage-webapp:latest-amd64 matthijsbos/nerdrage-webapp:latest-armv7
+        - docker manifest create matthijsbos/nerdrage-webapp:latest matthijsbos/nerdrage-webapp:latest-amd64 matthijsbos/nerdrage-webapp:latest-arm64 matthijsbos/nerdrage-webapp:latest-armv7
         - docker manifest push matthijsbos/nerdrage-webapp:latest
     
     
