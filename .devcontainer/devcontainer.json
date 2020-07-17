@@ -1,6 +1,16 @@
 {
-	"image": "matthijsbos/nerdrage-dev:latest",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "runner",
 	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash"
-	}
+	},
+	"postCreateCommand": 
+	    "pip3 install --no-cache-dir -r requirements.txt && pip3 install --no-cache-dir -r requirements_test.txt && pip3 install --no-cache-dir -r requirements_dev.txt && python3 setup.py develop",	
+	"extensions": [
+		"ms-python.python",
+		"ms-azuretools.vscode-docker",
+		"alexkrechik.cucumberautocomplete"
+	],
+	"workspaceFolder": "/workspace",
+	"shutdownAction": "stopCompose"
 }

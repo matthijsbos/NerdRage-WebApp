@@ -1,0 +1,24 @@
+---
+version: "3.8"
+services:
+    runner:
+        image: matthijsbos/nerdrage-dev
+        volumes: 
+            - type: bind
+              source: "/var/run/docker.sock"
+              target: "/var/run/docker.sock"
+            - ".:/workspace:cached"
+        command: /bin/sh -c "while sleep 1000; do :; done"
+    webapp:
+        build: .
+    selenium:
+        image: selenium/standalone-chrome:3.141.59
+        shm_size: 2g
+        # environment: 
+            # - "START_XVFB=false"
+        ports:
+            - "4444:4444"
+    crossbar:
+        image: crossbario/crossbar
+        ports: 
+            - "8080:8080"
