@@ -14,8 +14,6 @@ services:
     selenium:
         image: selenium/standalone-chrome:3.141.59
         shm_size: 2g
-        # environment: 
-            # - "START_XVFB=false"
         ports:
             - "4444:4444"
     crossbar:
