@@ -1,8 +1,8 @@
 FROM matthijsbos/nerdrage-base
 WORKDIR /usr/src/app
-ENV DEBIAN_FRONTEND noninteractive
-ENV PYTHONUNBUFFERED 1
-
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV FLASK_APP=nerdrage_webapp
 # install dependencies 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -15,5 +15,6 @@ RUN apt-get update \
 
 COPY ./requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
-COPY . .
-CMD [ "python3", "./NerdRageServer.py" ]
+COPY . ./nerdrage-webapp
+
+CMD flask run

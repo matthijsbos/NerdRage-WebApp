@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="http://requirejs.org/docs/release/2.1.11/minified/require.js"></script>
+
+
+
+    <body>
+        <input type="checkbox" id="poslim" />
+        <span id=myspan></span>
+
+        <script>
+
+
+
+
+
+            require.config({
+                baseUrl: ".",
+                paths: {
+                    "autobahn":
+                        "https://cdn.jsdelivr.net/npm/autobahn-js-built@0.11.1/autobahn.min",
+                    "when": "https://cdnjs.cloudflare.com/ajax/libs/when/2.7.1/when"
+                },
+                shim: {
+                    "autobahn": {
+                        deps: ["when"]
+                    }
+                }
+            });
+
+            require(["autobahn"], function(autobahn) {
+
+                console.log("Ok, Autobahn loaded", autobahn.version);
+
+                var connection = new autobahn.Connection({url: 'ws://crossbar:8080/ws', realm: 'realm1'});
+
+                connection.onopen = function (session) {
+
+                    var span = document.getElementById("myspan");
+                    txt = document.createTextNode("connected!");
+                    span.appendChild(txt);
+
+
+                    // 4) call a remote procedure
+                    session.call('nl.matthijsbos.nerdrage.get_poslim').then(function(res) {
+                        if (res) {
+                            document.getElementById("poslim").setAttribute("checked", "checked");
+                        } else {
+                            document.getElementById("poslim").removeAttribute("checked");
+                        }
+                    });
+
+                    session.subscribe("nl.matthijsbos.nerdrage_poslim_activated", function(args) {
+                        document.getElementById("poslim").setAttribute("checked", "checked");
+                    });
+                    session.subscribe("nl.matthijsbos.nerdrage_poslim_deactivated", function(args) {
+                        document.getElementById("poslim").removeAttribute("checked");
+                    });
+                };
+
+                connection.open();
+
+            });
+        </script>
+    </body>
+
+</html>
