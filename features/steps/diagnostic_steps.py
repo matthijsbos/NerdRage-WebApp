@@ -14,7 +14,7 @@ DEFAULT_TIMEOUT = 2 #seconds
 
 @given('the user has loaded the diagnostic page')
 def given_diagnostics_loaded(context):
-    context.browser.get("http://webapp/diagnostics")
+    context.browser.get("http://webapp/diagnostics.html")
     assert "404" not in context.browser.title
 
 @given('the pitch axis positive limit switch is activated')

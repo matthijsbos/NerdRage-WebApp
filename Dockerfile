@@ -1,20 +1,4 @@
-FROM matthijsbos/nerdrage-base
-WORKDIR /usr/src/app
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PYTHONUNBUFFERED=1
-ENV FLASK_APP=nerdrage_webapp
-# install dependencies 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-               python3-dev \
-               build-essential \
-    # minimize image
-    && rm -rf ~/.cache \
-    && rm -rf /var/lib/apt/lists/*
+FROM nginx:1.19
 
-
-COPY ./requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
-COPY . ./nerdrage-webapp
-
-CMD flask run
+COPY app /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf

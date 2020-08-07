@@ -33,9 +33,11 @@
 
                 console.log("Ok, Autobahn loaded", autobahn.version);
 
-                var connection = new autobahn.Connection({url: 'ws://crossbar:8080/ws', realm: 'realm1'});
+                var connection = new autobahn.Connection({url: 'ws://' + window.location.host + '/ws/', realm: 'realm1'});
 
                 connection.onopen = function (session) {
+
+                    console.log("Ok, Autobahn connected", session);
 
                     var span = document.getElementById("myspan");
                     txt = document.createTextNode("connected!");
